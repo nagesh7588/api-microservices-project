@@ -10,8 +10,8 @@ COPY . .
 # Install Flask
 RUN pip install flask
 
-# Expose the port used by the app
-EXPOSE 5002
+# Expose the port used by the appliocation
+EXPOSE 8080
 
 # Run the application
 CMD ["python", "product_service.py"]
