@@ -1,16 +1,19 @@
-# Use Python base image
-FROM python:3.9
+# Use a lighter base image
+FROM python:3.9-slim
 
 # Set working directory
 WORKDIR /app
 
-# Copy all files into the image
+# Copy only necessary files first to help cache pip layer
+COPY requirements.txt .
+
+# Install dependencies
+RUN pip install --no-cache-dir -r requirements.txt
+
+# Copy all remaining files
 COPY . .
 
-# Install Flask
-RUN pip install flask
-
-# Expose the port used by the appliocation
+# Expose the port Cloud Run requires
 EXPOSE 8080
 
 # Run the application
